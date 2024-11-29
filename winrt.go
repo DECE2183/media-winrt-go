@@ -6,6 +6,7 @@ package winrt
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.AsyncOperationCompletedHandler`1
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.AsyncStatus
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.DateTime
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.TimeSpan
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.Deferral
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.DeferralCompletedHandler
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -debug -class Windows.Foundation.IReference`1
@@ -20,6 +21,9 @@ package winrt
 // media
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.MediaPlaybackType
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.MediaPlaybackStatus
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControlsButton
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControlsButtonPressedEventArgs
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.PlaybackPositionChangeRequestedEventArgs
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControlsDisplayUpdater -method-filter CopyFromFileAsync -method-filter Update -method-filter !*
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControls -method-filter put_IsEnabled -method-filter put_IsPlayEnabled -method-filter put_IsPauseEnabled -method-filter put_IsPreviousEnabled -method-filter put_IsNextEnabled -method-filter put_IsRewindEnabled -method-filter put_PlaybackStatus -method-filter get_DisplayUpdater -method-filter add_ButtonPressed -method-filter remove_ButtonPressed -method-filter add_PlaybackPositionChangeRequested -method-filter remove_PlaybackPositionChangeRequested -method-filter !*
 
