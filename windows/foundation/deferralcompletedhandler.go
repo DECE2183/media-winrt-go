@@ -11,8 +11,8 @@ import (
 	"unsafe"
 
 	"github.com/dece2183/media-winrt-go/internal/delegate"
-	"github.com/go-ole/go-ole"
 	"github.com/dece2183/media-winrt-go/internal/kernel32"
+	"github.com/go-ole/go-ole"
 )
 
 const GUIDDeferralCompletedHandler string = "ed32a372-f3c8-4faa-9cfb-470148da3888"

@@ -17,8 +17,8 @@ package winrt
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.MediaPlaybackType
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.MediaPlaybackStatus
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControlsDisplayUpdater -method-filter CopyFromFileAsync -method-filter Update -method-filter !*
-//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControls -method-filter put_IsEnabled -method-filter put_IsPlayEnabled -method-filter put_IsPauseEnabled -method-filter put_IsPreviousEnabled -method-filter put_IsNextEnabled -method-filter put_IsRewindEnabled -method-filter !*
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.SystemMediaTransportControls -method-filter put_IsEnabled -method-filter put_IsPlayEnabled -method-filter put_IsPauseEnabled -method-filter put_IsPreviousEnabled -method-filter put_IsNextEnabled -method-filter put_IsRewindEnabled -method-filter put_PlaybackStatus -method-filter !*
 
 // media playback
-//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.Playback.MediaPlayer -method-filter get_SystemMediaTransportControls -method-filter get_CommandManager -method-filter !*
+//go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.Playback.MediaPlayer -method-filter Close -method-filter get_SystemMediaTransportControls -method-filter get_CommandManager -method-filter !*
 //go:generate go run github.com/dece2183/media-winrt-go/cmd/winrt-go-gen -class Windows.Media.Playback.MediaPlaybackCommandManager -method-filter put_IsEnabled -method-filter !*

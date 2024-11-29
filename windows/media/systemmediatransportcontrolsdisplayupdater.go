@@ -9,9 +9,9 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/go-ole/go-ole"
 	"github.com/dece2183/media-winrt-go/windows/foundation"
 	"github.com/dece2183/media-winrt-go/windows/storage"
+	"github.com/go-ole/go-ole"
 )
 
 const SignatureSystemMediaTransportControlsDisplayUpdater string = "rc(Windows.Media.SystemMediaTransportControlsDisplayUpdater;{8abbc53e-fa55-4ecf-ad8e-c984e5dd1550})"

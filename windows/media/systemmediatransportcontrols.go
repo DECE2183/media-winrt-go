@@ -18,6 +18,13 @@ type SystemMediaTransportControls struct {
 	ole.IUnknown
 }
 
+func (impl *SystemMediaTransportControls) SetPlaybackStatus(value MediaPlaybackStatus) error {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls)(unsafe.Pointer(itf))
+	return v.SetPlaybackStatus(value)
+}
+
 func (impl *SystemMediaTransportControls) SetIsEnabled(value bool) error {
 	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
 	defer itf.Release()
@@ -104,6 +111,20 @@ type iSystemMediaTransportControlsVtbl struct {
 
 func (v *iSystemMediaTransportControls) VTable() *iSystemMediaTransportControlsVtbl {
 	return (*iSystemMediaTransportControlsVtbl)(unsafe.Pointer(v.RawVTable))
+}
+
+func (v *iSystemMediaTransportControls) SetPlaybackStatus(value MediaPlaybackStatus) error {
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().SetPlaybackStatus,
+		uintptr(unsafe.Pointer(v)), // this
+		uintptr(value),             // in MediaPlaybackStatus
+	)
+
+	if hr != 0 {
+		return ole.NewError(hr)
+	}
+
+	return nil
 }
 
 func (v *iSystemMediaTransportControls) SetIsEnabled(value bool) error {

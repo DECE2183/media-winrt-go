@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/go-ole/go-ole"
 	"github.com/dece2183/media-winrt-go/windows/foundation"
+	"github.com/go-ole/go-ole"
 )
 
 const SignatureStorageFile string = "rc(Windows.Storage.StorageFile;{fa3f6186-4214-428c-a64c-14c9ac7315ea})"

@@ -9,8 +9,9 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/go-ole/go-ole"
+	"github.com/dece2183/media-winrt-go/windows/foundation"
 	"github.com/dece2183/media-winrt-go/windows/media"
+	"github.com/go-ole/go-ole"
 )
 
 const SignatureMediaPlayer string = "rc(Windows.Media.Playback.MediaPlayer;{381a83cb-6fff-499b-8d64-2885dfc1249e})"
@@ -32,6 +33,13 @@ func (impl *MediaPlayer) GetSystemMediaTransportControls() (*media.SystemMediaTr
 	defer itf.Release()
 	v := (*iMediaPlayer2)(unsafe.Pointer(itf))
 	return v.GetSystemMediaTransportControls()
+}
+
+func (impl *MediaPlayer) Close() error {
+	itf := impl.MustQueryInterface(ole.NewGUID(foundation.GUIDIClosable))
+	defer itf.Release()
+	v := (*foundation.IClosable)(unsafe.Pointer(itf))
+	return v.Close()
 }
 
 func (impl *MediaPlayer) GetCommandManager() (*MediaPlaybackCommandManager, error) {
