@@ -82,11 +82,25 @@ func (impl *SystemMediaTransportControls) AddButtonPressed(handler *foundation.T
 	return v.AddButtonPressed(handler)
 }
 
+func (impl *SystemMediaTransportControls) RemoveButtonPressed(token foundation.EventRegistrationToken) error {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls)(unsafe.Pointer(itf))
+	return v.RemoveButtonPressed(token)
+}
+
 func (impl *SystemMediaTransportControls) AddPlaybackPositionChangeRequested(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
 	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls2))
 	defer itf.Release()
 	v := (*iSystemMediaTransportControls2)(unsafe.Pointer(itf))
 	return v.AddPlaybackPositionChangeRequested(handler)
+}
+
+func (impl *SystemMediaTransportControls) RemovePlaybackPositionChangeRequested(token foundation.EventRegistrationToken) error {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls2))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls2)(unsafe.Pointer(itf))
+	return v.RemovePlaybackPositionChangeRequested(token)
 }
 
 const GUIDiSystemMediaTransportControls string = "99fa3ff4-1742-42a6-902e-087d41f965ec"
@@ -264,6 +278,20 @@ func (v *iSystemMediaTransportControls) AddButtonPressed(handler *foundation.Typ
 	return out, nil
 }
 
+func (v *iSystemMediaTransportControls) RemoveButtonPressed(token foundation.EventRegistrationToken) error {
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().RemoveButtonPressed,
+		uintptr(unsafe.Pointer(v)),      // this
+		uintptr(unsafe.Pointer(&token)), // in foundation.EventRegistrationToken
+	)
+
+	if hr != 0 {
+		return ole.NewError(hr)
+	}
+
+	return nil
+}
+
 const GUIDiSystemMediaTransportControls2 string = "ea98d2f6-7f3c-4af2-a586-72889808efb1"
 const SignatureiSystemMediaTransportControls2 string = "{ea98d2f6-7f3c-4af2-a586-72889808efb1}"
 
@@ -309,4 +337,18 @@ func (v *iSystemMediaTransportControls2) AddPlaybackPositionChangeRequested(hand
 	}
 
 	return out, nil
+}
+
+func (v *iSystemMediaTransportControls2) RemovePlaybackPositionChangeRequested(token foundation.EventRegistrationToken) error {
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().RemovePlaybackPositionChangeRequested,
+		uintptr(unsafe.Pointer(v)),      // this
+		uintptr(unsafe.Pointer(&token)), // in foundation.EventRegistrationToken
+	)
+
+	if hr != 0 {
+		return ole.NewError(hr)
+	}
+
+	return nil
 }
