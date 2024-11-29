@@ -89,6 +89,13 @@ func (impl *SystemMediaTransportControls) RemoveButtonPressed(token foundation.E
 	return v.RemoveButtonPressed(token)
 }
 
+func (impl *SystemMediaTransportControls) UpdateTimelineProperties(timelineProperties *SystemMediaTransportControlsTimelineProperties) error {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls2))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls2)(unsafe.Pointer(itf))
+	return v.UpdateTimelineProperties(timelineProperties)
+}
+
 func (impl *SystemMediaTransportControls) AddPlaybackPositionChangeRequested(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
 	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls2))
 	defer itf.Release()
@@ -321,6 +328,20 @@ type iSystemMediaTransportControls2Vtbl struct {
 
 func (v *iSystemMediaTransportControls2) VTable() *iSystemMediaTransportControls2Vtbl {
 	return (*iSystemMediaTransportControls2Vtbl)(unsafe.Pointer(v.RawVTable))
+}
+
+func (v *iSystemMediaTransportControls2) UpdateTimelineProperties(timelineProperties *SystemMediaTransportControlsTimelineProperties) error {
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().UpdateTimelineProperties,
+		uintptr(unsafe.Pointer(v)),                  // this
+		uintptr(unsafe.Pointer(timelineProperties)), // in SystemMediaTransportControlsTimelineProperties
+	)
+
+	if hr != 0 {
+		return ole.NewError(hr)
+	}
+
+	return nil
 }
 
 func (v *iSystemMediaTransportControls2) AddPlaybackPositionChangeRequested(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
