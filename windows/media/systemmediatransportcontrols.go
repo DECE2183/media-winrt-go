@@ -25,6 +25,13 @@ func (impl *SystemMediaTransportControls) SetPlaybackStatus(value MediaPlaybackS
 	return v.SetPlaybackStatus(value)
 }
 
+func (impl *SystemMediaTransportControls) GetDisplayUpdater() (*SystemMediaTransportControlsDisplayUpdater, error) {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls)(unsafe.Pointer(itf))
+	return v.GetDisplayUpdater()
+}
+
 func (impl *SystemMediaTransportControls) SetIsEnabled(value bool) error {
 	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
 	defer itf.Release()
@@ -125,6 +132,21 @@ func (v *iSystemMediaTransportControls) SetPlaybackStatus(value MediaPlaybackSta
 	}
 
 	return nil
+}
+
+func (v *iSystemMediaTransportControls) GetDisplayUpdater() (*SystemMediaTransportControlsDisplayUpdater, error) {
+	var out *SystemMediaTransportControlsDisplayUpdater
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().GetDisplayUpdater,
+		uintptr(unsafe.Pointer(v)),    // this
+		uintptr(unsafe.Pointer(&out)), // out SystemMediaTransportControlsDisplayUpdater
+	)
+
+	if hr != 0 {
+		return nil, ole.NewError(hr)
+	}
+
+	return out, nil
 }
 
 func (v *iSystemMediaTransportControls) SetIsEnabled(value bool) error {
