@@ -5,10 +5,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/dece2183/media-winrt-go/internal/cli"
 	"github.com/go-kit/log"
 	"github.com/go-kit/log/level"
 	"github.com/peterbourgon/ff/v3"
-	"github.com/saltosystems/winrt-go/internal/cli"
 )
 
 func main() {

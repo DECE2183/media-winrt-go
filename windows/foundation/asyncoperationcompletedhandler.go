@@ -10,9 +10,9 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/dece2183/media-winrt-go/internal/delegate"
 	"github.com/go-ole/go-ole"
-	"github.com/saltosystems/winrt-go/internal/delegate"
-	"github.com/saltosystems/winrt-go/internal/kernel32"
+	"github.com/dece2183/media-winrt-go/internal/kernel32"
 )
 
 const GUIDAsyncOperationCompletedHandler string = "fcdcf02c-e5d8-4478-915a-4d90b74b83a5"

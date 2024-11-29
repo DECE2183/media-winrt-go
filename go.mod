@@ -1,4 +1,4 @@
-module github.com/saltosystems/winrt-go
+module github.com/dece2183/media-winrt-go
 
 go 1.18
 
