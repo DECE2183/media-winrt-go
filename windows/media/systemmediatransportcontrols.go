@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"unsafe"
 
+	"github.com/dece2183/media-winrt-go/windows/foundation"
 	"github.com/go-ole/go-ole"
 )
 
@@ -72,6 +73,20 @@ func (impl *SystemMediaTransportControls) SetIsNextEnabled(value bool) error {
 	defer itf.Release()
 	v := (*iSystemMediaTransportControls)(unsafe.Pointer(itf))
 	return v.SetIsNextEnabled(value)
+}
+
+func (impl *SystemMediaTransportControls) AddButtonPressed(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls)(unsafe.Pointer(itf))
+	return v.AddButtonPressed(handler)
+}
+
+func (impl *SystemMediaTransportControls) AddPlaybackPositionChangeRequested(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
+	itf := impl.MustQueryInterface(ole.NewGUID(GUIDiSystemMediaTransportControls2))
+	defer itf.Release()
+	v := (*iSystemMediaTransportControls2)(unsafe.Pointer(itf))
+	return v.AddPlaybackPositionChangeRequested(handler)
 }
 
 const GUIDiSystemMediaTransportControls string = "99fa3ff4-1742-42a6-902e-087d41f965ec"
@@ -233,6 +248,22 @@ func (v *iSystemMediaTransportControls) SetIsNextEnabled(value bool) error {
 	return nil
 }
 
+func (v *iSystemMediaTransportControls) AddButtonPressed(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
+	var out foundation.EventRegistrationToken
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().AddButtonPressed,
+		uintptr(unsafe.Pointer(v)),       // this
+		uintptr(unsafe.Pointer(handler)), // in foundation.TypedEventHandler
+		uintptr(unsafe.Pointer(&out)),    // out foundation.EventRegistrationToken
+	)
+
+	if hr != 0 {
+		return foundation.EventRegistrationToken{}, ole.NewError(hr)
+	}
+
+	return out, nil
+}
+
 const GUIDiSystemMediaTransportControls2 string = "ea98d2f6-7f3c-4af2-a586-72889808efb1"
 const SignatureiSystemMediaTransportControls2 string = "{ea98d2f6-7f3c-4af2-a586-72889808efb1}"
 
@@ -262,4 +293,20 @@ type iSystemMediaTransportControls2Vtbl struct {
 
 func (v *iSystemMediaTransportControls2) VTable() *iSystemMediaTransportControls2Vtbl {
 	return (*iSystemMediaTransportControls2Vtbl)(unsafe.Pointer(v.RawVTable))
+}
+
+func (v *iSystemMediaTransportControls2) AddPlaybackPositionChangeRequested(handler *foundation.TypedEventHandler) (foundation.EventRegistrationToken, error) {
+	var out foundation.EventRegistrationToken
+	hr, _, _ := syscall.SyscallN(
+		v.VTable().AddPlaybackPositionChangeRequested,
+		uintptr(unsafe.Pointer(v)),       // this
+		uintptr(unsafe.Pointer(handler)), // in foundation.TypedEventHandler
+		uintptr(unsafe.Pointer(&out)),    // out foundation.EventRegistrationToken
+	)
+
+	if hr != 0 {
+		return foundation.EventRegistrationToken{}, ole.NewError(hr)
+	}
+
+	return out, nil
 }
