@@ -55,7 +55,7 @@ func StorageFileGetFileFromPathAsync(path string) (*foundation.IAsyncOperation, 
 	}
 	hr, _, _ := syscall.SyscallN(
 		v.VTable().StorageFileGetFileFromPathAsync,
-		0,                             // this is a static func, so there's no this
+		uintptr(unsafe.Pointer(v)),    // this
 		uintptr(pathHStr),             // in string
 		uintptr(unsafe.Pointer(&out)), // out foundation.IAsyncOperation
 	)
